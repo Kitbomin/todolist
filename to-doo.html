@@ -20,6 +20,58 @@
     <div id="content">
         <div class="box">
             <p class="to-do">♥투두 리스트♥</p>
+            <div class="add">
+                <input type="text" id="inputText" placeholder="오늘 해야 할 일은?">
+                <button id="addButton">추가</button>
+            </div>
+            <div class="scroll">
+                <ul id="list"></ul>
+            </div>
     </div>
+
+    <script>
+        function addValue() {
+            var inputValue = document.getElementById("inputText").value;
+            if (inputValue.trim() === "") {
+                return; // 값이 비어있을 경우 추가하지 않음
+            }
+
+            var valueList = document.getElementById("list");
+            var newItem = document.createElement("li");
+
+            // 결과값을 담을 span 요소 생성
+            var resultSpan = document.createElement("span");
+            resultSpan.textContent = inputValue;
+
+            // 삭제 버튼 생성
+            var deleteButton = document.createElement("button");
+            deleteButton.textContent = "삭제";
+            deleteButton.className = "delete-button";
+            deleteButton.addEventListener("click", function() {
+                valueList.removeChild(newItem); // 삭제 버튼 클릭 시 해당 아이템 제거
+            });
+
+            newItem.appendChild(resultSpan);
+            newItem.appendChild(deleteButton);
+            valueList.appendChild(newItem);
+
+            document.getElementById("inputText").value = "";
+        }
+
+                // 추가 버튼 클릭 이벤트 리스너
+                var addButton = document.getElementById("addButton");
+                addButton.addEventListener("click", function() {
+                    addValue();
+                });
+        
+                // Enter 키 입력 이벤트 리스너
+                var inputText = document.getElementById("inputText");
+                inputText.addEventListener("keypress", function(event) {
+                    if (event.keyCode === 13) {
+                        event.preventDefault();
+                        addValue();
+                    }
+                });
+    </script>
 </body>
 </html>
